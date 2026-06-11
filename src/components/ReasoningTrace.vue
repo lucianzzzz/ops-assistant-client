@@ -1,8 +1,8 @@
 <template>
   <div class="reasoning-trace">
     <div class="trace-header">
-      <span class="icon">🧠</span>
-      <h3>AI 推理过程</h3>
+      <span class="icon">🔄</span>
+      <h4>推理过程</h4>
       <button @click="toggleExpand" class="toggle-btn">
         {{ expanded ? '收起' : '展开' }}
       </button>
@@ -42,11 +42,6 @@
         </div>
 
         <div v-if="step.iteration < steps.length" class="arrow">↓</div>
-      </div>
-
-      <div class="final-result">
-        <span class="icon">✅</span>
-        <strong>最终结论</strong>
       </div>
     </div>
   </div>
