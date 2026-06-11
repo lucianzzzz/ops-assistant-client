@@ -2,7 +2,7 @@
   <div class="home">
     <div class="page-header">
       <h1 class="page-title">智能运维问答</h1>
-      <p class="page-subtitle">基于 ReAct 推理和语义检索的 AI Agent 系统</p>
+      <p class="page-subtitle">基于 ReAct 推理和多Agent协作的智能运维助手</p>
     </div>
 
     <div class="main-content">

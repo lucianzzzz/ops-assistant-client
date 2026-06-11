@@ -7,8 +7,8 @@
         <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <h3>👋 欢迎使用智能运维助手</h3>
-    <p>输入运维问题，AI 将为您提供专业的解决方案</p>
+    <h3>👋 输入问题，开始查询</h3>
+    <p>描述您遇到的运维问题，AI 将为您提供专业的解决方案</p>
 
     <div class="example-questions">
       <p class="example-title">💡 示例问题：</p>
