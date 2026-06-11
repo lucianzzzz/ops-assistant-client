@@ -279,6 +279,7 @@ const thoughtTypeLabel = (type: string) => {
 .conclusion-content :deep(p) {
   margin: var(--space-md) 0;
   line-height: 1.8;
+  text-indent: 2em;
 }
 
 .conclusion-content :deep(p:first-child) {
