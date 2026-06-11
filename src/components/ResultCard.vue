@@ -162,14 +162,8 @@
         </div>
       </div>
 
-      <!-- ReAct 推理过程 -->
-      <ReasoningTrace
-        v-if="result.reasoning_steps && result.reasoning_steps.length"
-        :steps="result.reasoning_steps"
-      />
-
-      <!-- AI 详细分析 -->
-      <div v-if="result.ai_fallback?.used && result.ai_fallback?.raw_response" class="content-section ai-section">
+      <!-- AI 智能分析（合并推理过程和详细分析） -->
+      <div v-if="result.ai_fallback?.used && (result.reasoning_steps?.length || result.ai_fallback?.raw_response)" class="content-section ai-section">
         <div class="section-header">
           <div class="section-icon ai">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -178,7 +172,7 @@
               <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h4 class="section-title">AI 详细分析</h4>
+          <h4 class="section-title">🧠 AI 智能分析</h4>
           <div class="ai-source-badge">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
@@ -187,7 +181,19 @@
             <span>DeepSeek AI</span>
           </div>
         </div>
-        <div class="ai-response-box">
+
+        <!-- 推理过程 -->
+        <ReasoningTrace
+          v-if="result.reasoning_steps && result.reasoning_steps.length"
+          :steps="result.reasoning_steps"
+        />
+
+        <!-- 最终分析结论 -->
+        <div v-if="result.ai_fallback?.raw_response" class="ai-response-box">
+          <div class="conclusion-header">
+            <span class="icon">✅</span>
+            <strong>最终分析结论</strong>
+          </div>
           <div class="ai-response-content" v-html="formatAIResponse(result.ai_fallback.raw_response)"></div>
         </div>
       </div>
