@@ -67,6 +67,15 @@ export interface ExecutionResult {
   error?: string
 }
 
+export interface ReasoningStep {
+  iteration: number
+  thought: string
+  thought_type: string
+  action: string
+  action_type: string
+  observation: string
+}
+
 export interface AskResponse {
   question: string
   normalized_metric: string
@@ -80,6 +89,7 @@ export interface AskResponse {
   fallback_questions: any[]
   ai_fallback?: AIFallbackResult
   executable_actions?: ExecutableAction[]
+  reasoning_steps?: ReasoningStep[]
 }
 
 export interface DataSourceStatus {
