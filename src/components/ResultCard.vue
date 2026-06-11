@@ -154,12 +154,20 @@
         </div>
         <div class="actions-grid">
           <ActionCard
-            v-for="action in result.executable_actions"
+            v-for="action in displayedActions"
             :key="action.id"
             :action="action"
             @executed="handleActionExecuted"
           />
         </div>
+
+        <button
+          v-if="hasMoreActions && !showAllActions"
+          @click="showAllActions = true"
+          class="show-more-btn"
+        >
+          显示更多 ({{ result.executable_actions.length - 5 }} 个)
+        </button>
       </div>
 
       <!-- AI 智能分析（合并推理过程和详细分析） -->
@@ -726,6 +734,32 @@ const exportResult = () => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: var(--space-lg);
+}
+
+.show-more-btn {
+  margin-top: var(--space-md);
+  padding: var(--space-md) var(--space-xl);
+  background: transparent;
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  width: 100%;
+}
+
+.show-more-btn:hover {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+  background: rgba(0, 209, 178, 0.05);
+}
+
+@media (max-width: 768px) {
+  .actions-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
