@@ -52,15 +52,21 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const props = defineProps({
-  steps: {
-    type: Array,
-    required: true
-  }
-})
+interface ReasoningStep {
+  iteration: number
+  thought: string
+  thought_type: string
+  action: string
+  action_type: string
+  observation: string
+}
+
+defineProps<{
+  steps: ReasoningStep[]
+}>()
 
 const expanded = ref(false)
 
@@ -68,8 +74,8 @@ const toggleExpand = () => {
   expanded.value = !expanded.value
 }
 
-const thoughtTypeLabel = (type) => {
-  const labels = {
+const thoughtTypeLabel = (type: string) => {
+  const labels: Record<string, string> = {
     'analyze': '分析',
     'plan': '规划',
     'decide': '决策',
