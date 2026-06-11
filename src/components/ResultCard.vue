@@ -250,6 +250,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import type { AskResponse, ExecutionResult } from '@/services/api'
 import ConfidenceChart from './ConfidenceChart.vue'
 import KeywordsCloud from './KeywordsCloud.vue'
@@ -261,6 +262,22 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  actionExecuted: [result: ExecutionResult]
+}>()
+
+const showAllActions = ref(false)
+
+const displayedActions = computed(() => {
+  if (!props.result.executable_actions) return []
+  if (showAllActions.value) return props.result.executable_actions
+  return props.result.executable_actions.slice(0, 5)
+})
+
+const hasMoreActions = computed(() => {
+  return (props.result.executable_actions?.length || 0) > 5
+})
 
 const getConfidenceClass = (confidence: number) => {
   if (confidence >= 0.8) return 'high'
