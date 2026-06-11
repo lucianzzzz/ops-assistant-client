@@ -123,18 +123,20 @@ const thoughtTypeLabel = (type: string) => {
 
 .toggle-btn {
   padding: 6px 16px;
-  background: rgba(0, 209, 178, 0.1);
-  border: 1px solid var(--color-accent-primary);
+  background: transparent;
+  border: 1px solid rgba(0, 209, 178, 0.3);
   border-radius: var(--radius-md);
   color: var(--color-accent-primary);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   transition: all var(--transition-base);
 }
 
 .toggle-btn:hover {
-  background: rgba(0, 209, 178, 0.2);
+  background: rgba(0, 209, 178, 0.1);
+  border-color: var(--color-accent-primary);
+  transform: translateY(-1px);
 }
 
 .trace-steps {
