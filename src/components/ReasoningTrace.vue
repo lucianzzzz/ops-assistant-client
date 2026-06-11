@@ -235,34 +235,40 @@ const thoughtTypeLabel = (type: string) => {
   margin: var(--space-md) 0;
 }
 
-/* 最终结论样式 */
+/* 最终结论样式 - 与步骤卡片统一 */
 .final-conclusion {
-  margin-top: var(--space-xl);
+  position: relative;
+  margin-bottom: var(--space-lg);
   padding: var(--space-lg);
-  background: rgba(147, 51, 234, 0.05);
-  border: 1px solid rgba(147, 51, 234, 0.2);
-  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  border-left: 3px solid var(--color-ai);
+  border: 1px solid var(--color-border-primary);
 }
 
 .conclusion-header {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   margin-bottom: var(--space-md);
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid rgba(147, 51, 234, 0.2);
-  color: var(--color-ai);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 13px;
+  color: var(--color-ai);
 }
 
 .conclusion-header .icon {
-  font-size: 20px;
+  font-size: 16px;
+}
+
+.conclusion-header strong {
+  color: var(--color-ai);
+  font-size: 13px;
 }
 
 .conclusion-content {
   line-height: 1.8;
   color: var(--color-text-secondary);
+  font-size: 14px;
 }
 
 .conclusion-content :deep(p) {
