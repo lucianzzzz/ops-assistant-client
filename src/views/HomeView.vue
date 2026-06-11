@@ -3,6 +3,21 @@
     <div class="page-header">
       <h1 class="page-title">智能运维问答</h1>
       <p class="page-subtitle">基于 ReAct 推理和多Agent协作的智能运维助手</p>
+
+      <!-- 示例问题 -->
+      <div v-if="!result && !loading" class="example-questions">
+        <p class="example-label">💡 试试这些问题：</p>
+        <div class="example-buttons">
+          <button
+            v-for="example in examples"
+            :key="example"
+            @click="handleExampleSelect(example)"
+            class="example-chip"
+          >
+            {{ example }}
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="main-content">
@@ -12,9 +27,7 @@
       </div>
 
       <!-- 空状态 -->
-      <transition name="fade">
-        <EmptyState v-if="!loading && !result && !error" @select-example="handleExampleSelect" />
-      </transition>
+      <!-- 已移除，示例问题在页面标题下方 -->
 
       <!-- 加载状态 -->
       <transition name="fade">
@@ -62,9 +75,14 @@
 import { ref, computed } from 'vue'
 import AskForm from '@/components/AskForm.vue'
 import ResultCard from '@/components/ResultCard.vue'
-import EmptyState from '@/components/EmptyState.vue'
 import ExecutionHistoryPanel from '@/components/ExecutionHistoryPanel.vue'
 import { api, type AskRequest, type AskResponse, type ExecutionResult } from '@/services/api'
+
+const examples = [
+  'IF1接收时延异常怎么处理',
+  'CPU利用率持续升高如何排查',
+  '数据库连接数过高怎么办'
+]
 
 const loading = ref(false)
 const error = ref<string | null>(null)
@@ -141,6 +159,43 @@ const handleActionExecuted = (executionResult: ExecutionResult) => {
 .page-subtitle {
   font-size: 15px;
   color: var(--color-text-tertiary);
+  margin-bottom: var(--space-xl);
+}
+
+.example-questions {
+  margin-top: var(--space-xl);
+}
+
+.example-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.example-buttons {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.example-chip {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 999px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.example-chip:hover {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+  background: rgba(0, 209, 178, 0.05);
+  transform: translateY(-2px);
 }
 
 .main-content {
