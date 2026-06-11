@@ -116,6 +116,10 @@ const handleAsk = async (data: AskRequest) => {
 }
 
 const handleExampleSelect = (question: string) => {
+  // 直接填充到表单并提交
+  if (formRef.value) {
+    (formRef.value as any).form.question = question
+  }
   handleAsk({ question, top_k: 3 })
 }
 
