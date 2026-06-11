@@ -7,7 +7,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/ops-assistant-client/',
+  base: process.env.NODE_ENV === 'production' ? '/ops-assistant-client/' : '/',
   plugins: [
     vue(),
     vueJsx(),
