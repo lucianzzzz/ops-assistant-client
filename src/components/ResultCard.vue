@@ -2,30 +2,19 @@
   <div class="result-card">
     <div class="card-header">
       <div class="header-left">
-        <svg class="header-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <polyline points="22 4 12 14.01 9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <CheckCircle2 :size="20" class="header-icon" />
         <h3 class="card-title">查询结果</h3>
       </div>
       <div class="header-right">
         <!-- AI 增强标识 -->
         <div v-if="result.ai_fallback?.used" class="ai-badge" :class="{ error: result.ai_fallback?.error }">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <Sparkles :size="16" />
           <span>{{ result.ai_fallback?.error ? 'AI 查询失败' : 'AI 增强' }}</span>
         </div>
 
         <!-- 导出按钮 -->
         <button @click="exportResult" class="export-btn" title="导出结果">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <Download :size="16" />
         </button>
 
         <div :class="['confidence-badge', getConfidenceClass(result.confidence)]">
@@ -46,10 +35,7 @@
       <div class="summary-section">
         <div class="summary-item">
           <div class="summary-label">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <AlertCircle :size="16" />
             问题
           </div>
           <div class="summary-value">{{ result.question }}</div>
@@ -57,10 +43,7 @@
 
         <div class="summary-item" v-if="result.normalized_metric">
           <div class="summary-label">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M18 9l-5 5-4-4-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <TrendingUp :size="16" />
             识别指标
           </div>
           <div class="summary-value">
@@ -70,10 +53,7 @@
 
         <div class="summary-item" v-if="result.keywords && result.keywords.length">
           <div class="summary-label">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="7" cy="7" r="1" fill="currentColor"/>
-            </svg>
+            <Tag :size="16" />
             关键词
           </div>
           <div class="summary-value">
@@ -86,10 +66,7 @@
       <div v-if="result.possible_reason && result.possible_reason.length" class="content-section">
         <div class="section-header">
           <div class="section-icon error">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <AlertTriangle :size="18" />
           </div>
           <h4 class="section-title">可能原因</h4>
           <span class="section-count">{{ result.possible_reason.length }}</span>
@@ -145,9 +122,7 @@
       <div v-if="result.executable_actions && result.executable_actions.length" class="content-section">
         <div class="section-header">
           <div class="section-icon accent">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="5 3 19 12 5 21 5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <Play :size="18" />
           </div>
           <h4 class="section-title">可执行动作</h4>
           <span class="section-count">{{ result.executable_actions.length }}</span>
@@ -174,18 +149,11 @@
       <div v-if="result.ai_fallback?.used && (result.reasoning_steps?.length || result.ai_fallback?.raw_response)" class="content-section ai-section">
         <div class="section-header">
           <div class="section-icon ai">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <Sparkles :size="18" />
           </div>
           <h4 class="section-title">🧠 AI 智能分析</h4>
           <div class="ai-source-badge">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <Sparkles :size="14" />
             <span>DeepSeek AI</span>
           </div>
         </div>
@@ -206,10 +174,7 @@
       <div v-if="result.matched_knowledge && result.matched_knowledge.length" class="content-section">
         <div class="section-header">
           <div class="section-icon accent">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <BookOpen :size="18" />
           </div>
           <h4 class="section-title">匹配的知识条目</h4>
           <span class="section-count">{{ result.matched_knowledge.length }}</span>
@@ -251,6 +216,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { CheckCircle2, Sparkles, Download, AlertCircle, Tag, TrendingUp, Lightbulb, AlertTriangle, Play, BookOpen } from 'lucide-vue-next'
 import type { AskResponse, ExecutionResult } from '@/services/api'
 import ConfidenceChart from './ConfidenceChart.vue'
 import KeywordsCloud from './KeywordsCloud.vue'
