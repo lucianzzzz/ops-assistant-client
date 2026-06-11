@@ -182,19 +182,15 @@
           </div>
         </div>
 
-        <!-- 推理过程 -->
-        <ReasoningTrace
-          v-if="result.reasoning_steps && result.reasoning_steps.length"
-          :steps="result.reasoning_steps"
-        />
-
-        <!-- 最终分析结论 -->
-        <div v-if="result.ai_fallback?.raw_response" class="ai-response-box">
-          <div class="conclusion-header">
-            <span class="icon">✅</span>
-            <strong>最终分析结论</strong>
-          </div>
-          <div class="ai-response-content" v-html="formatAIResponse(result.ai_fallback.raw_response)"></div>
+        <!-- 推理过程（包含最终结论） -->
+        <div class="ai-response-box">
+          <ReasoningTrace
+            v-if="result.reasoning_steps && result.reasoning_steps.length"
+            :steps="result.reasoning_steps"
+            :conclusion="result.ai_fallback?.raw_response ? formatAIResponse(result.ai_fallback.raw_response) : undefined"
+          />
+          <!-- 如果没有推理步骤，只显示结论 -->
+          <div v-else-if="result.ai_fallback?.raw_response" class="ai-response-content" v-html="formatAIResponse(result.ai_fallback.raw_response)"></div>
         </div>
       </div>
 

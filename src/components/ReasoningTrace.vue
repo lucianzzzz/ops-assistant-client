@@ -43,6 +43,15 @@
 
         <div v-if="step.iteration < steps.length" class="arrow">↓</div>
       </div>
+
+      <!-- 最终结论 -->
+      <div v-if="conclusion" class="final-conclusion">
+        <div class="conclusion-header">
+          <span class="icon">✅</span>
+          <strong>最终分析结论</strong>
+        </div>
+        <div class="conclusion-content" v-html="conclusion"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -61,6 +70,7 @@ interface ReasoningStep {
 
 defineProps<{
   steps: ReasoningStep[]
+  conclusion?: string
 }>()
 
 const expanded = ref(false)
