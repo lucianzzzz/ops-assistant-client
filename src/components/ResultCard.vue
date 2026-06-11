@@ -145,20 +145,8 @@
         </button>
       </div>
 
-      <!-- AI 智能分析（合并推理过程和详细分析） -->
+      <!-- 推理过程 -->
       <div v-if="result.ai_fallback?.used && (result.reasoning_steps?.length || result.ai_fallback?.raw_response)" class="content-section ai-section">
-        <div class="section-header">
-          <div class="section-icon ai">
-            <Sparkles :size="18" />
-          </div>
-          <h4 class="section-title">🧠 AI 智能分析</h4>
-          <div class="ai-source-badge">
-            <Sparkles :size="14" />
-            <span>DeepSeek AI</span>
-          </div>
-        </div>
-
-        <!-- 推理过程（包含最终结论） -->
         <div class="ai-response-box">
           <ReasoningTrace
             v-if="result.reasoning_steps && result.reasoning_steps.length"

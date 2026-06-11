@@ -1,8 +1,8 @@
 <template>
   <div class="reasoning-trace">
     <div class="trace-header">
-      <RefreshCw :size="16" />
-      <h4>推理过程</h4>
+      <Brain :size="18" />
+      <h4>AI 推理过程</h4>
       <button @click="toggleExpand" class="toggle-btn">
         {{ expanded ? '收起' : '展开' }}
       </button>
@@ -23,19 +23,19 @@
 
         <div class="step-content">
           <div class="thought">
-            <span class="icon">💭</span>
+            <MessageSquare :size="16" class="icon" />
             <span class="label">思考：</span>
             <p>{{ step.thought }}</p>
           </div>
 
           <div v-if="step.action" class="action">
-            <span class="icon">⚡</span>
+            <Zap :size="16" class="icon" />
             <span class="label">动作：</span>
             <p>{{ step.action }}</p>
           </div>
 
           <div v-if="step.observation" class="observation">
-            <span class="icon">👁</span>
+            <Eye :size="16" class="icon" />
             <span class="label">观察：</span>
             <p>{{ step.observation }}</p>
           </div>
@@ -58,7 +58,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { RefreshCw, CheckCircle } from 'lucide-vue-next'
+import { Brain, CheckCircle, MessageSquare, Zap, Eye } from 'lucide-vue-next'
 
 interface ReasoningStep {
   iteration: number
