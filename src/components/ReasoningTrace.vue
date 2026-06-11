@@ -235,6 +235,45 @@ const thoughtTypeLabel = (type: string) => {
   margin: var(--space-md) 0;
 }
 
+/* 最终结论样式 */
+.final-conclusion {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background: rgba(147, 51, 234, 0.05);
+  border: 1px solid rgba(147, 51, 234, 0.2);
+  border-radius: var(--radius-md);
+}
+
+.conclusion-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+  color: var(--color-ai);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.conclusion-header .icon {
+  font-size: 20px;
+}
+
+.conclusion-content {
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.conclusion-content :deep(p) {
+  margin: var(--space-md) 0;
+}
+
+.conclusion-content :deep(strong) {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
 .final-result {
   display: flex;
   align-items: center;
