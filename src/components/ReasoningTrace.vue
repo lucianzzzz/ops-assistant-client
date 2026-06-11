@@ -47,7 +47,7 @@
       <!-- 最终结论 -->
       <div v-if="conclusion" class="final-conclusion">
         <div class="conclusion-header">
-          <span class="icon">✅</span>
+          <CheckCircle :size="16" />
           <strong>最终分析结论</strong>
         </div>
         <div class="conclusion-content" v-html="conclusion"></div>
@@ -252,15 +252,15 @@ const thoughtTypeLabel = (type: string) => {
 .conclusion-header {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   margin-bottom: var(--space-md);
   font-weight: 600;
   font-size: 13px;
   color: var(--color-ai);
 }
 
-.conclusion-header .icon {
-  font-size: 16px;
+.conclusion-header svg {
+  flex-shrink: 0;
 }
 
 .conclusion-header strong {
