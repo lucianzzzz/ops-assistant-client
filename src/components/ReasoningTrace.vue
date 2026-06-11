@@ -1,7 +1,7 @@
 <template>
   <div class="reasoning-trace">
     <div class="trace-header">
-      <span class="icon">🔄</span>
+      <RefreshCw :size="16" />
       <h4>推理过程</h4>
       <button @click="toggleExpand" class="toggle-btn">
         {{ expanded ? '收起' : '展开' }}
@@ -58,6 +58,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { RefreshCw, CheckCircle } from 'lucide-vue-next'
 
 interface ReasoningStep {
   iteration: number
