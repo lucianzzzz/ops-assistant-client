@@ -272,15 +272,60 @@ const thoughtTypeLabel = (type: string) => {
   line-height: 1.8;
   color: var(--color-text-secondary);
   font-size: 14px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .conclusion-content :deep(p) {
   margin: var(--space-md) 0;
+  line-height: 1.8;
+}
+
+.conclusion-content :deep(p:first-child) {
+  margin-top: 0;
+}
+
+.conclusion-content :deep(p:last-child) {
+  margin-bottom: 0;
 }
 
 .conclusion-content :deep(strong) {
   color: var(--color-text-primary);
   font-weight: 600;
+}
+
+.conclusion-content :deep(ul),
+.conclusion-content :deep(ol) {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-xl);
+}
+
+.conclusion-content :deep(li) {
+  margin: var(--space-xs) 0;
+  line-height: 1.7;
+}
+
+.conclusion-content :deep(code) {
+  background: rgba(147, 51, 234, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9em;
+  color: var(--color-ai);
+}
+
+.conclusion-content :deep(pre) {
+  background: var(--color-surface-secondary);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: var(--space-md) 0;
+}
+
+.conclusion-content :deep(br) {
+  display: block;
+  content: "";
+  margin: var(--space-sm) 0;
 }
 
 .final-result {
