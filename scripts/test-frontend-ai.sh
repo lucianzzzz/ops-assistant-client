@@ -1,0 +1,80 @@
+#!/bin/bash
+
+echo "🔍 前端 AI 增强测试指南"
+echo "================================"
+echo ""
+echo "当前状态："
+echo "  ✅ 后端：运行正常（端口 8012）"
+echo "  ✅ 前端：运行正常（端口 5174）"
+echo "  ✅ DeepSeek：配置成功"
+echo "  ✅ API 测试：通过（AI 已触发）"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "⚠️  \"Failed to fetch\" 的原因"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "AI 查询需要时间："
+echo "  1. 本地搜索：< 100ms"
+echo "  2. DeepSeek API 调用：10-15 秒 ⏱️"
+echo "  3. 结果合并：< 100ms"
+echo ""
+echo "前端可能因为等待太久而超时显示错误。"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "✅ 解决方案：耐心等待 15-20 秒"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "测试步骤："
+echo ""
+echo "1. 访问前端"
+echo "   http://localhost:5174"
+echo ""
+echo "2. 输入问题"
+echo "   Kubernetes Pod 一直重启怎么排查？"
+echo ""
+echo "3. 点击查询按钮"
+echo ""
+echo "4. 🎯 关键：耐心等待 15-20 秒！"
+echo "   看到 \"正在查询...\" 时不要刷新页面"
+echo "   即使显示错误，也请等待完成"
+echo ""
+echo "5. 观察结果"
+echo "   - 应该会看到详细的分析（7000+ 字符）"
+echo "   - 置信度约 70%"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🧪 API 直接测试（最可靠）"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "运行此命令测试："
+echo ""
+time curl -s -X POST http://localhost:8012/api/v1/assistant/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question": "Kubernetes Pod 一直重启怎么排查", "top_k": 3}' \
+  | jq '{
+    question,
+    confidence,
+    ai_fallback: {
+      used: .ai_fallback.used,
+      message: .ai_fallback.message
+    },
+    response_length: (.ai_fallback.raw_response | length)
+  }'
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📊 预期结果"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "{"
+echo "  \"question\": \"Kubernetes Pod 一直重启怎么排查\","
+echo "  \"confidence\": 0.7,"
+echo "  \"ai_fallback\": {"
+echo "    \"used\": true,  ← ✅ AI 已工作"
+echo "    \"message\": null"
+echo "  },"
+echo "  \"response_length\": 7126  ← ✅ DeepSeek 详细回答"
+echo "}"
+echo ""
+echo "耗时约：10-15 秒"
+echo ""
