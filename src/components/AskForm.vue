@@ -90,6 +90,12 @@ const handleSubmit = () => {
   gap: var(--space-lg);
 }
 
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .form-label {
   display: block;
   margin-bottom: var(--space-sm);

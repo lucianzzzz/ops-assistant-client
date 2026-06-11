@@ -11,6 +11,11 @@
         <AskForm @submit="handleAsk" :loading="loading" />
       </div>
 
+      <!-- 空状态 -->
+      <transition name="fade">
+        <EmptyState v-if="!loading && !result && !error" @select-example="handleExampleSelect" />
+      </transition>
+
       <!-- 加载状态 -->
       <transition name="fade">
         <div v-if="loading" class="loading-card">
@@ -31,9 +36,10 @@
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
             <path d="M12 8V12M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <div>
+          <div class="error-content">
             <strong>查询失败</strong>
             <p>{{ error }}</p>
+            <button @click="retryQuery" class="retry-btn">重新尝试</button>
           </div>
         </div>
       </transition>
@@ -56,6 +62,7 @@
 import { ref, computed } from 'vue'
 import AskForm from '@/components/AskForm.vue'
 import ResultCard from '@/components/ResultCard.vue'
+import EmptyState from '@/components/EmptyState.vue'
 import ExecutionHistoryPanel from '@/components/ExecutionHistoryPanel.vue'
 import { api, type AskRequest, type AskResponse, type ExecutionResult } from '@/services/api'
 
@@ -65,6 +72,7 @@ const result = ref<AskResponse | null>(null)
 const queryStartTime = ref<number>(0)
 const showHistory = ref(false)
 const historyPanelRef = ref<InstanceType<typeof ExecutionHistoryPanel> | null>(null)
+const formRef = ref<InstanceType<typeof AskForm> | null>(null)
 
 const loadingMessage = computed(() => {
   if (!loading.value) return ''
@@ -87,6 +95,14 @@ const handleAsk = async (data: AskRequest) => {
   } finally {
     loading.value = false
   }
+}
+
+const handleExampleSelect = (question: string) => {
+  handleAsk({ question, top_k: 3 })
+}
+
+const retryQuery = () => {
+  error.value = null
 }
 
 const handleActionExecuted = (executionResult: ExecutionResult) => {
@@ -174,13 +190,54 @@ const handleActionExecuted = (executionResult: ExecutionResult) => {
 
 .error-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-lg);
   padding: var(--space-xl);
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid var(--color-error);
   border-radius: var(--radius-lg);
   color: var(--color-error);
+}
+
+.error-content {
+  flex: 1;
+}
+
+.error-content p {
+  margin: var(--space-sm) 0;
+  font-size: 14px;
+}
+
+.retry-btn {
+  margin-top: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-error);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.retry-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding: var(--space-lg);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
 }
 
 .error-icon {
